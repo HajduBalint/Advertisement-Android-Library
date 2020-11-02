@@ -1,0 +1,3 @@
+include ':AdvertiserLibrary'
+include ':app'
+rootProject.name = "AdvertiserExample"
