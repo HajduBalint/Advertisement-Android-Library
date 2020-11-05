@@ -8,6 +8,6 @@ interface RetroFitAdvertisement {
 
     @Headers("Content-Type: application/json")
     @GET("/listadvertisements")
-    fun getAdvertisements(@Body body: String) : Call<List<Advertisement>>
+    fun getAdvertisements() : Call<List<Advertisement>>
 
 }
