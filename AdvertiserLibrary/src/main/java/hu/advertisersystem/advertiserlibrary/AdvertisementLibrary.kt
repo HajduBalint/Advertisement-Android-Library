@@ -28,7 +28,7 @@ class AdvertisementLibrary(private val context: Context) {
         OkHttpClient.setAPIKey(apiKey)
         OkHttpClient.setAppId(context.packageName)
         RetrofitClient.createAdvertisementService()
-        val call = RetrofitClient.advertisementService!!.getAdvertisements()
+        val call = RetrofitClient.advertisementService!!.getAdvertisements(gsonPretty.toJson(filter))
 
         call.enqueue(object : Callback<List<Advertisement>> {
             override fun onFailure(call: Call<List<Advertisement>>, t: Throwable) {
