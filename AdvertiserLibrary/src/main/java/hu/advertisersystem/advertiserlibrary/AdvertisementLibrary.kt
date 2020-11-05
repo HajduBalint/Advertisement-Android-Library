@@ -14,7 +14,7 @@ import retrofit2.Callback
 
 class AdvertisementLibrary(private val context: Context) {
 
-    fun advertisements(filter: AdvertisementFilter): List<Advertisement>{
+    fun advertisements(filter: AdvertisementFilter?): List<Advertisement>{
         var apiKey: String
 
         val gsonPretty = GsonBuilder().setPrettyPrinting().create()
