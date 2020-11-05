@@ -21,7 +21,7 @@ class AdvertisementLibrary(private val context: Context) {
 
         context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
             .apply {
-                apiKey = metaData.getString(context.packageName + "API_KEY")!!
+                apiKey = metaData.getString("advertisement.system.API_KEY")!!
             }
 
         var advertisementList = listOf<Advertisement>()

@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    private const val BASE_URL = "localhost:8080"
+    private const val BASE_URL = "http://localhost:8080"
     var advertisementService: RetroFitAdvertisement? = null
 
     fun createAdvertisementService(){
