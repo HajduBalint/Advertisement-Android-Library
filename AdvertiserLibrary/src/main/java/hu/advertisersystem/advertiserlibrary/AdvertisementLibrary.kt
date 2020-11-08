@@ -12,9 +12,12 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback
 
-class AdvertisementLibrary(private val context: Context) {
+class AdvertisementLibrary(private val context: Context){
 
-    fun advertisements(filter: AdvertisementFilter?): List<Advertisement>{
+    private var TAG = "AdvertisementLibrary.kt"
+    var advertisementList = listOf<Advertisement>()
+
+    fun advertisements(filter: AdvertisementFilter?){
         var apiKey: String
 
         val gsonPretty = GsonBuilder().setPrettyPrinting().create()
@@ -24,7 +27,6 @@ class AdvertisementLibrary(private val context: Context) {
                 apiKey = metaData.getString("advertisement.system.API_KEY")!!
             }
 
-        var advertisementList = listOf<Advertisement>()
         OkHttpClient.setAPIKey(apiKey)
         OkHttpClient.setAppId(context.packageName)
         RetrofitClient.createAdvertisementService()
@@ -46,6 +48,7 @@ class AdvertisementLibrary(private val context: Context) {
                 }
             }
         })
-        return advertisementList
+        //Toast.makeText(context, advertisementList.toString(), Toast.LENGTH_LONG).show()
+        //Log.d(TAG,advertisementList.toString())
     }
 }
