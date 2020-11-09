@@ -17,7 +17,7 @@ class AdvertisementLibrary(private val context: Context){
     private var TAG = "AdvertisementLibrary.kt"
     var advertisementList = listOf<Advertisement>()
 
-    fun advertisements(filter: AdvertisementFilter?){
+    fun advertisements(filter: AdvertisementFilter?, callback: AdvertisementSystemCallBack){
         var apiKey: String
 
         val gsonPretty = GsonBuilder().setPrettyPrinting().create()
@@ -30,10 +30,11 @@ class AdvertisementLibrary(private val context: Context){
         OkHttpClient.setAPIKey(apiKey)
         OkHttpClient.setAppId(context.packageName)
         RetrofitClient.createAdvertisementService()
-        val call = RetrofitClient.advertisementService!!.getAdvertisements()
+        val call = RetrofitClient.advertisementService!!.getAdvertisements(gsonPretty.toJson(filter))
 
         call.enqueue(object : Callback<List<Advertisement>> {
             override fun onFailure(call: Call<List<Advertisement>>, t: Throwable) {
+                callback.onFailed()
                 Log.d("advertisements","failure", t)
             }
 
@@ -41,8 +42,10 @@ class AdvertisementLibrary(private val context: Context){
                 when(response.code()){
                     200 -> {
                         advertisementList = response.body()!!
+                        callback.onSuccess(advertisementList)
                     }
                     else -> {
+                        callback.onFailed()
                         Log.d("advertisements", "response code: ${response.code()}")
                     }
                 }
@@ -50,5 +53,11 @@ class AdvertisementLibrary(private val context: Context){
         })
         //Toast.makeText(context, advertisementList.toString(), Toast.LENGTH_LONG).show()
         //Log.d(TAG,advertisementList.toString())
+    }
+
+    interface AdvertisementSystemCallBack{
+        fun onSuccess(advertisements: List<Advertisement>)
+
+        fun onFailed()
     }
 }
