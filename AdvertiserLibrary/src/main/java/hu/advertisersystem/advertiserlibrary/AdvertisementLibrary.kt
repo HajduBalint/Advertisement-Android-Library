@@ -15,7 +15,7 @@ import retrofit2.Callback
 class AdvertisementLibrary(private val context: Context){
     private var TAG = "AdvertisementLibrary.kt"
 
-    fun advertisements(filter: AdvertisementFilter?, callback: AdvertisementSystemCallBack){
+    fun advertisements(filter: AdvertisementFilter, callback: AdvertisementSystemCallBack){
         var apiKey: String
 
         val gsonPretty = GsonBuilder().setPrettyPrinting().create()
@@ -28,12 +28,11 @@ class AdvertisementLibrary(private val context: Context){
         OkHttpClient.setAPIKey(apiKey)
         OkHttpClient.setAppId(context.packageName)
         RetrofitClient.createAdvertisementService()
-        val call = RetrofitClient.advertisementService!!.getAdvertisements(gsonPretty.toJson(filter))
+        val call = RetrofitClient.advertisementService!!.getAdvertisements(filter)
 
         call.enqueue(object : Callback<List<Advertisement>> {
             override fun onFailure(call: Call<List<Advertisement>>, t: Throwable) {
                 callback.onFailed()
-                Log.d("advertisements","failure", t)
             }
 
             override fun onResponse(call: Call<List<Advertisement>>, response: Response<List<Advertisement>>) {
