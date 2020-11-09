@@ -13,9 +13,7 @@ import retrofit2.Response
 import retrofit2.Callback
 
 class AdvertisementLibrary(private val context: Context){
-
     private var TAG = "AdvertisementLibrary.kt"
-    var advertisementList = listOf<Advertisement>()
 
     fun advertisements(filter: AdvertisementFilter?, callback: AdvertisementSystemCallBack){
         var apiKey: String
@@ -41,8 +39,7 @@ class AdvertisementLibrary(private val context: Context){
             override fun onResponse(call: Call<List<Advertisement>>, response: Response<List<Advertisement>>) {
                 when(response.code()){
                     200 -> {
-                        advertisementList = response.body()!!
-                        callback.onSuccess(advertisementList)
+                        callback.onSuccess(response.body()!!)
                     }
                     else -> {
                         callback.onFailed()
