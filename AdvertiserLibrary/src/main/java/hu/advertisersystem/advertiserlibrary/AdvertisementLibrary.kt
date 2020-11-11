@@ -3,7 +3,6 @@ package hu.advertisersystem.advertiserlibrary
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
-import com.google.gson.GsonBuilder
 import hu.advertisersystem.advertiserlibrary.model.Advertisement
 import hu.advertisersystem.advertiserlibrary.model.AdvertisementFilter
 import hu.advertisersystem.advertiserlibrary.retrofit.OkHttpClient
@@ -13,12 +12,9 @@ import retrofit2.Response
 import retrofit2.Callback
 
 class AdvertisementLibrary(private val context: Context){
-    private var TAG = "AdvertisementLibrary.kt"
 
     fun advertisements(filter: AdvertisementFilter, callback: AdvertisementSystemCallBack){
         var apiKey: String
-
-        val gsonPretty = GsonBuilder().setPrettyPrinting().create()
 
         context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
             .apply {
@@ -47,8 +43,6 @@ class AdvertisementLibrary(private val context: Context){
                 }
             }
         })
-        //Toast.makeText(context, advertisementList.toString(), Toast.LENGTH_LONG).show()
-        //Log.d(TAG,advertisementList.toString())
     }
 
     interface AdvertisementSystemCallBack{

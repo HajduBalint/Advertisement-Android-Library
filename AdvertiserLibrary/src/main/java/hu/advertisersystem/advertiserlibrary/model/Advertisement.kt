@@ -3,7 +3,7 @@ package hu.advertisersystem.advertiserlibrary.model
 data class Advertisement(
     val advertiserId: String = "",
     val outerUrl: String = "",
-    val addType: String = "",
+    val advType: String = "",
     val position: Number = 0,
     val length: Number = 0,
     val radius: Number = 0,
